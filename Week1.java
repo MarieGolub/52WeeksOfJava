@@ -1,3 +1,5 @@
+//simple code to manipulate strings, make a small calculation and print an output
+
 class Week1Project {
     public static void main(String[] args) {
         int yearBorn = 2009;

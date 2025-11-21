@@ -1,3 +1,6 @@
+//calculator program that performs basic operations on two numbers
+//EDIT: learnt switch cases in week 3, however kept if-else for week 2 submission
+
 import java.util.Scanner;
 
 class Week2Project {
