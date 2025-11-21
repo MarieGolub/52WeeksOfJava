@@ -6,7 +6,7 @@ class Week3Project {
         
         int startindex = 1;
         int endindex = 4;
-        char key = 'i';
+        char key = 'a';
 
         //Arrays.sort(vowels, startindex, endindex);
         int keyindex = Arrays.binarySearch(vowels, startindex, endindex, key);
