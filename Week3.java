@@ -7,9 +7,6 @@ class Week3Project {
 
         int copyofNumbers[] = Arrays.copyOf(numbers, numbers.length);
 
-        Arrays.fill(numbers, 0);
-
-        System.out.println(Arrays.toString(numbers));
-        System.out.println(Arrays.toString(copyofNumbers));
+        System.out.println(Arrays.equals(numbers,copyofNumbers));
     }
 }
