@@ -1,12 +1,11 @@
 //
-import java.util.Arrays;
 
 class Week3Project {
     public static void main(String[] args) {
-        int numbers[] = {1,2,3,4,5,};
+        int numbers[] = {1,2,3,4,5,6,7,8,9,10};
 
-        int copyofNumbers[] = Arrays.copyOf(numbers, numbers.length);
-
-        System.out.println(Arrays.equals(numbers,copyofNumbers));
+        for (int index = 0; index < numbers.length; index++){
+            System.out.println(numbers[index]);
+        }
     }
 }
