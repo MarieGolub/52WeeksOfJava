@@ -1,16 +1,15 @@
 //
-
 import java.util.Arrays;
 
 class Week3Project {
     public static void main(String[] args) {
-        char vowels[] = {'e', 'a', 'u', 'i', 'o'};
-        
-        int startindex = 1;
-        int endindex = 4;
+        int numbers[] = {1,2,3,4,5,};
 
-        Arrays.fill(vowels,startindex, endindex, 'x');
+        int copyofNumbers[] = Arrays.copyOf(numbers, numbers.length);
 
-        System.out.println(Arrays.toString(vowels));
+        Arrays.fill(numbers, 0);
+
+        System.out.println(Arrays.toString(numbers));
+        System.out.println(Arrays.toString(copyofNumbers));
     }
 }
