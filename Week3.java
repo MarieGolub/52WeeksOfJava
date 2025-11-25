@@ -8,12 +8,9 @@ class Week3Project {
         
         //int startindex = 1;
         //int endindex = 4;
-        char key = 'x';
 
-        //Arrays.sort(vowels, startindex, endindex);
-        int keyindex = Arrays.binarySearch(vowels, key);
+        Arrays.fill(vowels, 'x');
 
         System.out.println(Arrays.toString(vowels));
-        System.out.println(keyindex);
     }
 }
