@@ -1,13 +1,9 @@
 class Week4Project{
     public static void main(String[] args){
-        int numbers[] = {1,2,3,4,5,6,7,8,9,10};
+        int number = 5;
 
-        int sum = 0;
-
-        for (int index = 0; index < 10; index++){
-            sum += numbers[index];
+        for (int multiplier = 1; multiplier < 13; multiplier++){
+            System.out.printf("%d x %d = %d\n", number, multiplier, number*multiplier);
         }
-
-        System.out.println(sum);
     }
 }
