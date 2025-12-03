@@ -1,16 +1,11 @@
+import java.util.ArrayList;
+
 class Week4Project{
     public static void main(String[] args){
-        int number = 5;
-        int multiplier = 1;
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
 
-        do { 
-            System.out.printf("%d x %d = %d\n", number, multiplier, number * multiplier);
-            multiplier++;
-        } while (multiplier <= 10);
+        numbers.add(1);
 
-        while (multiplier <= 10){
-            System.out.printf("%d x %d = %d\n", number, multiplier, number*multiplier);
-            multiplier ++;
-        }
+        System.out.println(numbers);
     }
 }
