@@ -11,8 +11,14 @@ class Week4Project{
         numbers.add(2);
         numbers.add(4);
 
+        numbers.forEach(number -> {
+            numbers.set(numbers.indexOf(number), number * 2);
+            System.out.println(number * 2);
+            });
+
         numbers.sort(Comparator.naturalOrder());
 
         System.out.println(numbers);
+
     }
 }
