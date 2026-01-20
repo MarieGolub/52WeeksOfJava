@@ -1,7 +1,7 @@
 //Creates an array of characters based on user input and then prints a search value (if user wants to search)
 
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 class Week3Project {
     public static void main(String[] args){
@@ -45,5 +45,6 @@ class Week3Project {
             case "N", "n" -> System.out.println("Search operation skipped.");
             default -> System.out.println("Invalid response. Please enter Y or N.");
         }
+        scanner.close();
     }
 }

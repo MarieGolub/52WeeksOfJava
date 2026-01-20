@@ -45,6 +45,6 @@ class Week4Project{
         for (int j = 0; j < numbers.size(); j++){
             System.out.println("Grade for " + numbers.get(j) + " is: " + grades.get(j));
         }
-
+        scanner.close();
     }
 }

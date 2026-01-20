@@ -36,5 +36,6 @@ class Week2Project {
         else{
             System.out.println("Operator not recognised.");
         }
+        scanner.close();
     }
 }
