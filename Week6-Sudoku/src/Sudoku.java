@@ -2,6 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 
 public final class Sudoku {
+        void setupTiles() {
+        for (int r = 0; r < 9; r++) {
+            for (int c = 0; c < 9; c++) {
+                Tile tile = new Tile(r, c);
+                char tileChar = puzzle[r].charAt(c);
+                tile.setText(String.valueOf(tileChar));
+                boardPanel.add(tile);
+        }
+    }
+}
+
     class Tile extends JButton {
         int r;
         int c;
@@ -54,7 +65,7 @@ public final class Sudoku {
 
         textLabel.setFont(new Font("Arial", Font.BOLD, 30));
         textLabel.setHorizontalAlignment(JLabel.CENTER);
-        textLabel.setText("Sudoku: 1");
+        textLabel.setText("Sudoku: 0");
 
         textPanel.add(textLabel);
         frame.add(textPanel, BorderLayout.NORTH);
@@ -65,13 +76,5 @@ public final class Sudoku {
 
     }
 
-    void setupTiles() {
-        for (int r = 0; r < 9; r++) {
-            for (int c = 0; c < 9; c++) {
-                Tile tile = new Tile(r, c);
-                char tileChar = puzzle[r].charAt(c);
-                tile.setText(String.valueOf(tileChar));
-                boardPanel.add(tile);
-        }
-    }
-}}
+
+}

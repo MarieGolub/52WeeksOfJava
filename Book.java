@@ -7,3 +7,4 @@ public class Book {
         return String.format("%s by %s", this.title, this.author);
     }
 }
+
