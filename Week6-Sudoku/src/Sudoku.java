@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public final class Sudoku {
@@ -31,7 +33,52 @@ public final class Sudoku {
                 }
                 tile.setFocusable(false);
                 boardPanel.add(tile);
+
+                tile.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        Tile tile = (Tile) e.getSource();
+                        int r = tile.r;
+                        int c = tile.c;
+                        if (numSelected != null) {
+                            if (tile.getText() != ""){
+                                return;
+                            }
+                            String numSelectedText = numSelected.getText();
+                            String tileSolution = String.valueOf(solution[r].charAt(c));
+                            if (tileSolution.equals(numSelectedText)){
+                                tile.setText(numSelectedText);
+                            }
+                            else{
+                                errors += 1;
+                                textLabel.setText("Sudoku: " + String.valueOf(errors));
+                            }
+
+                        }
+                    }
+                });
         }
+    }
+}
+
+void setupButtons() {
+    for (int i = 1; i < 10; i++) {
+        JButton button = new JButton();
+        button.setFont(new Font("Arial", Font.BOLD, 20));
+        button.setText(String.valueOf(i));
+        button.setFocusable(false);
+        button.setBackground(Color.white);
+        buttonsPanel.add(button);
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JButton button = (JButton) e.getSource();
+                if (numSelected != null) {
+                    numSelected.setBackground(Color.white);
+                }
+                numSelected = button;
+                numSelected.setBackground(Color.lightGray);
+            }
+        });
     }
 }
 
@@ -75,7 +122,10 @@ public final class Sudoku {
     JLabel textLabel = new JLabel();
     JPanel textPanel = new JPanel();
     JPanel boardPanel = new JPanel();
-    JPanel numberPanel = new JPanel();
+    JPanel buttonsPanel = new JPanel();
+
+    JButton numSelected = null;
+    int errors = 0;
 
     Sudoku() {
         frame.setSize(boardWidth, boardHeight);
@@ -86,15 +136,18 @@ public final class Sudoku {
 
         textLabel.setFont(new Font("Arial", Font.BOLD, 30));
         textLabel.setHorizontalAlignment(JLabel.CENTER);
-        textLabel.setText("Sudoku: 0");
+        textLabel.setText("Sudoku: " + errors);
 
         textPanel.add(textLabel);
         frame.add(textPanel, BorderLayout.NORTH);
 
         boardPanel.setLayout(new GridLayout(9, 9));
         setupTiles();
-
         frame.add(boardPanel, BorderLayout.CENTER);
+
+        buttonsPanel.setLayout(new GridLayout(1,9));
+        setupButtons();
+        frame.add(buttonsPanel, BorderLayout.SOUTH);
 
         frame.setVisible(true);
     }
