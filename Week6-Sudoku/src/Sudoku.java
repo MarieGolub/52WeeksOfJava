@@ -40,7 +40,7 @@ public final class Sudoku {
                         int r = tile.r;
                         int c = tile.c;
                         if (numSelected != null) {
-                            if (tile.getText() != ""){
+                            if (tile.getText().equals("")){
                                 return;
                             }
                             String numSelectedText = numSelected.getText();
