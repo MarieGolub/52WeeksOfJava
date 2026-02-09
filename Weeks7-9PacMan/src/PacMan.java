@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashSet;
-import java.util.random;
+//import java.util.random;
 import javax.swing.*;
 
 public class PacMan extends JPanel{
@@ -12,8 +12,8 @@ public class PacMan extends JPanel{
         int height;
         Image image;
 
-        int startx;
-        int starty;
+        int startX;
+        int startY;
 
         Block(Image image, int x, int y, int width, int height) {
             this.image = image;
