@@ -1,10 +1,8 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.util.HashSet;
-//import java.util.random;
 import javax.swing.*;
 
-public class PacMan extends JPanel{
+public final class PacMan extends JPanel{
     class Block {
         int x;
         int y;
@@ -70,7 +68,7 @@ public class PacMan extends JPanel{
     };
 
     HashSet<Block> walls;
-    HashSet<Block> food;
+    HashSet<Block> foods;
     HashSet<Block> ghosts;
     Block pacman;
 
@@ -89,11 +87,13 @@ public class PacMan extends JPanel{
         pacmanDownImage = new ImageIcon(getClass().getResource("./pacmanDown.png")).getImage();
         pacmanLeftImage = new ImageIcon(getClass().getResource("./pacmanLeft.png")).getImage();
         pacmanRightImage = new ImageIcon(getClass().getResource("./pacmanRight.png")).getImage();
+
+        loadMap();
     }
 
     public void loadMap() {
         walls = new HashSet<Block> ();
-        food = new HashSet<Block> ();
+        foods = new HashSet<Block> ();
         ghosts = new HashSet<Block> ();
 
         for(int r = 0; r < rowCount; r++) {
@@ -105,6 +105,37 @@ public class PacMan extends JPanel{
                 int x = c * tileSize;
                 int y = r * tileSize;
 
+                switch (tileMapChar) {
+                    case 'X' -> {
+                        Block wall = new Block(wallImage, x, y, tileSize, tileSize);
+                        walls.add(wall);
+                    }
+                    case 'b' ->                         {
+                            Block ghost = new Block(blueGhostImage, x, y, tileSize, tileSize);
+                            ghosts.add(ghost);
+                        }
+                    case 'r' ->                         {
+                            Block ghost = new Block(redGhostImage, x, y, tileSize, tileSize);
+                            ghosts.add(ghost);
+                        }
+                    case 'p' ->                         {
+                            Block ghost = new Block(pinkGhostImage, x, y, tileSize, tileSize);
+                            ghosts.add(ghost);
+                        }
+                    case 'o' ->                         {
+                            Block ghost = new Block(orangeGhostImage, x, y, tileSize, tileSize);
+                            ghosts.add(ghost);
+                        }
+                    case 'P' ->                         {
+                            pacman = new Block(pacmanRightImage, x, y, tileSize, tileSize);
+                    }
+                    case ' ' ->                         {
+                        Block food = new Block(null, x + 14, y + 14, 4, 4);
+                        foods.add(food);
+                    }
+                    default -> {
+                    }
+                }
 
             }
         }
