@@ -1,8 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.HashSet;
 import javax.swing.*;
 
-public final class PacMan extends JPanel{
+public final class PacMan extends JPanel implements ActionListener, KeyListener {
     class Block {
         int x;
         int y;
@@ -12,6 +13,9 @@ public final class PacMan extends JPanel{
 
         int startX;
         int startY;
+        char direction = 'U';
+        int velocityX = 0;
+        int velocityY = 0;
 
         Block(Image image, int x, int y, int width, int height) {
             this.image = image;
@@ -22,27 +26,71 @@ public final class PacMan extends JPanel{
             this.startX = x;
             this.startY = y;
         }
-    }
+        
+        void updateDirection(char direction) {
+            this.direction = direction;
+            updateVelocity();
+        }
 
+        void updateVelocity() {
+            switch (this.direction) {
+                case 'U' -> {
+                    this.velocityX = 0;
+                    this.velocityY = -tileSize/4;
+                }
+                case 'D' -> {
+                    this.velocityX = 0;
+                    this.velocityY = tileSize/4;
+                }
+                case 'L' -> {
+                    this.velocityX = -tileSize/4;
+                    this.velocityY = 0;
+                    break;
+                }
+                case 'R' -> {
+                    this.velocityX = tileSize/4;
+                    this.velocityY = 0;
+                }
+                default -> {
+                }
+            }
+        }
+
+    }
+    @SuppressWarnings("FieldMayBeFinal")
     private int rowCount = 21;
+    @SuppressWarnings("FieldMayBeFinal")
     private int columnCount = 19;
+    @SuppressWarnings("FieldMayBeFinal")
     private int tileSize = 32;
+    @SuppressWarnings("FieldMayBeFinal")
     private int boardWidth = columnCount * tileSize;
+    @SuppressWarnings("FieldMayBeFinal")
     private int boardHeight = rowCount * tileSize;
 
+    @SuppressWarnings("FieldMayBeFinal")
     private Image wallImage;
+    @SuppressWarnings("FieldMayBeFinal")
     private Image blueGhostImage;
+    @SuppressWarnings("FieldMayBeFinal")
     private Image redGhostImage;
+    @SuppressWarnings("FieldMayBeFinal")
     private Image pinkGhostImage;
+    @SuppressWarnings("FieldMayBeFinal")
     private Image orangeGhostImage;
 
+    @SuppressWarnings({"FieldMayBeFinal", "unused"})
     private Image pacmanUpImage;
+    @SuppressWarnings({"FieldMayBeFinal", "unused"})
     private Image pacmanDownImage;
+    @SuppressWarnings({ "FieldMayBeFinal", "unused" })
     private Image pacmanLeftImage;
+    @SuppressWarnings("FieldMayBeFinal")
     private Image pacmanRightImage;
 
     //X = wall, O = skip, P = pac man, ' ' = food
     //Ghosts: b = blue, o = orange, p = pink, r = red
+    @SuppressWarnings("FieldMayBeFinal")
     private String[] tileMap = {
         "XXXXXXXXXXXXXXXXXXX",
         "X        X        X",
@@ -72,9 +120,13 @@ public final class PacMan extends JPanel{
     HashSet<Block> ghosts;
     Block pacman;
 
+    Timer gameLoop;
+
     PacMan() {
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.black);
+        addKeyListener(this);
+        setFocusable(true);
 
         //load images
         wallImage = new ImageIcon(getClass().getResource("./wall.png")).getImage();
@@ -89,12 +141,14 @@ public final class PacMan extends JPanel{
         pacmanRightImage = new ImageIcon(getClass().getResource("./pacmanRight.png")).getImage();
 
         loadMap();
+        gameLoop = new Timer(50, this);
+        gameLoop.start();
     }
 
     public void loadMap() {
-        walls = new HashSet<Block> ();
-        foods = new HashSet<Block> ();
-        ghosts = new HashSet<Block> ();
+        walls = new HashSet<> ();
+        foods = new HashSet<> ();
+        ghosts = new HashSet<> ();
 
         for(int r = 0; r < rowCount; r++) {
             for (int c = 0; c < columnCount; c++) {
@@ -160,6 +214,49 @@ public final class PacMan extends JPanel{
         for (Block food: foods) {
             g.fillRect(food.x, food.y, food.width, food.height);
         }
+    }
 
+    public void move() {
+        pacman.x += pacman.velocityX;
+        pacman.y += pacman.velocityY;
+
+        for (Block wall : walls) {
+            if (collision(pacman, wall)) {
+                pacman.x -= pacman.velocityX;
+                pacman.y -= pacman.velocityY;
+            }
+        }
+    }
+
+    public boolean collision(Block a, Block b) {
+        return a.x < b.x + b.width && 
+        a.x + a.width > b.x && 
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        move();
+        repaint();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        //System.out.println("KeyEvent: " + e.getKeyCode());
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP -> pacman.updateDirection('U');
+            case KeyEvent.VK_DOWN -> pacman.updateDirection('D');
+            case KeyEvent.VK_LEFT -> pacman.updateDirection('L');
+            case KeyEvent.VK_RIGHT -> pacman.updateDirection('R');
+            default -> {
+            }
+        }
     }
 }
